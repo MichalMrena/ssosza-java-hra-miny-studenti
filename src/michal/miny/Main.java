@@ -1,18 +1,17 @@
 package michal.miny;
 
+import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) {
-        Policko prve = new Policko(true, 7);
-        Policko druhe = new Policko(true, 7);
 
-        Policko tretie = prve;
+        ArrayList<Pozicia> miny = new ArrayList<Pozicia>();
+        miny.add(new Pozicia(2, 1));
+        miny.add(new Pozicia(0, 0));
+        miny.add(new Pozicia(0, 3));
 
-        if (prve == tretie) {
-            System.out.println("Su rovnake");
-        }
+        HraMiny hra = new HraMiny(4, 9, miny);
 
-        if (prve == druhe) {
-            System.out.println("Aj tieto su rovnake");
-        }
+        System.out.println("funguje to");
     }
 }
