@@ -15,7 +15,6 @@ public class HraMiny {
         this.policka = new Policko[pocetRiadkov][pocetStlpcov];
         for (int riadok = 0; riadok < pocetRiadkov; riadok++) {
             for (int stlpec = 0; stlpec < pocetStlpcov; stlpec++) {
-
                 boolean jeTamMina = this.obsahujeMinu(riadok, stlpec, miny);
                 this.policka[riadok][stlpec] = new Policko(jeTamMina, -1);
             }
