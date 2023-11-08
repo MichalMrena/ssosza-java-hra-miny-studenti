@@ -1,5 +1,7 @@
 package michal.miny;
 
+import com.sun.security.jgss.GSSUtil;
+
 import java.util.ArrayList;
 
 /**
@@ -16,12 +18,81 @@ public class HraMiny {
         for (int riadok = 0; riadok < pocetRiadkov; riadok++) {
             for (int stlpec = 0; stlpec < pocetStlpcov; stlpec++) {
                 boolean jeTamMina = this.obsahujeMinu(miny, riadok, stlpec);
-                this.policka[riadok][stlpec] = new Policko(jeTamMina, -1);
+                int pocetMinVOkoli = this.spocitajMinyVOkoli(miny, riadok, stlpec);
+                this.policka[riadok][stlpec] = new Policko(jeTamMina, pocetMinVOkoli);
             }
         }
     }
 
-    public boolean obsahujeMinu(ArrayList<Pozicia> miny, int riadok, int stlpec) {
+    public int getPocetRiadkov() {
+        return this.policka.length;
+    }
+
+    public int getPocetStlpcov() {
+        return this.policka[0].length;
+    }
+
+    public void odkry(int riadok, int stlpec) {
+        if (!this.jeVHracejPloche(riadok, stlpec)) {
+            return;
+        }
+
+        Policko policko = this.policka[riadok][stlpec];
+        if (policko.jeOdkryte()) {
+            return;
+        }
+
+        
+    }
+
+    public void debugPrint() {
+        for (Policko[] riadok : this.policka) {
+            for (Policko policko : riadok) {
+                if (policko.obsahujeMinu()) {
+                    System.out.print("x");
+                } else if (policko.getPocetMinVOkoli() > 0) {
+                    System.out.print(policko.getPocetMinVOkoli());
+                } else {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    private int spocitajMinyVOkoli(ArrayList<Pozicia> miny, int riadok, int stlpec) {
+        int pocet = 0;
+
+        for (int dr = -1; dr < 2; dr++) {
+            for (int ds = -1; ds < 2; ds++) {
+                if (dr == 0 && ds == 0) {
+                    continue;
+                }
+
+                int kontrolovanyRiadok = riadok + dr;
+                int kontrolovanyStlpec = stlpec + ds;
+
+                if (!this.jeVHracejPloche(kontrolovanyRiadok, kontrolovanyStlpec)) {
+                    continue;
+                }
+
+                if (this.obsahujeMinu(miny, kontrolovanyRiadok, kontrolovanyStlpec)) {
+                    pocet++;
+                }
+            }
+        }
+
+        return pocet;
+    }
+
+    private boolean jeVHracejPloche(int kontrolovanyRiadok, int kontrolovanyStlpec) {
+        return kontrolovanyRiadok >= 0 &&
+               kontrolovanyStlpec >= 0 &&
+               kontrolovanyRiadok < this.getPocetRiadkov() &&
+               kontrolovanyStlpec < this.getPocetStlpcov();
+    }
+
+    private boolean obsahujeMinu(ArrayList<Pozicia> miny, int riadok, int stlpec) {
         for (Pozicia pozicia : miny) {
             if (pozicia.jeRovnaka(riadok, stlpec)) {
                 return true;
