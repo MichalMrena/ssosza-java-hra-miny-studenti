@@ -10,6 +10,8 @@ import java.util.ArrayList;
 public class HraMiny {
 
     private Policko[][] policka;
+    private StavHry stavHry;
+    private int pocetNeodkrytych;
 
     public HraMiny(int pocetRiadkov, int pocetStlpcov, ArrayList<Pozicia> miny) {
         this.policka = new Policko[pocetRiadkov][pocetStlpcov];
@@ -20,6 +22,9 @@ public class HraMiny {
                 this.policka[riadok][stlpec] = new Policko(jeTamMina, pocetMinVOkoli);
             }
         }
+
+        this.stavHry = StavHry.PREBIEHA;
+        this.pocetNeodkrytych = pocetRiadkov * pocetStlpcov - miny.size();
     }
 
     public int getPocetRiadkov() {
@@ -28,6 +33,70 @@ public class HraMiny {
 
     public int getPocetStlpcov() {
         return this.policka[0].length;
+    }
+
+    public void odkry(int riadok, int stlpec) {
+        if (!this.jeVHracomPoli(riadok, stlpec)) {
+            return;
+        }
+
+        if (this.stavHry != StavHry.PREBIEHA) {
+            return;
+        }
+
+        Policko policko = this.policka[riadok][stlpec];
+        if (policko.jeOdkryte() || policko.jeOznacene()) {
+            return;
+        }
+
+        if (policko.maMinu()) {
+            this.stavHry = StavHry.PREHRA;
+            return;
+        }
+
+        this.odkryOkolieVratane(riadok, stlpec);
+
+        if (this.pocetNeodkrytych == 0) {
+            this.stavHry = StavHry.VYHRA;
+        }
+    }
+
+    private void odkryOkolieVratane(int riadok, int stlpec) {
+        ArrayList<Pozicia> pozicie = new ArrayList<Pozicia>();
+        Pozicia prva = new Pozicia(riadok, stlpec);
+        pozicie.add(prva);
+
+        while (!pozicie.isEmpty()) {
+            // vyber dalsiu poziciu a spristupni policko
+            int index = pozicie.size() - 1;
+            Pozicia pozicia = pozicie.get(index);
+            pozicie.remove(index);
+            Policko policko = this.policka[pozicia.getRiadok()][pozicia.getStlpec()];
+
+            policko.odkrySa();
+            this.pocetNeodkrytych--;
+
+            // prehladaj okolie
+            for (int dr = -1; dr < 2; dr++) {
+                for (int ds = -1; ds < 2; ds++) {
+                    if (dr == 0 && ds == 0) {
+                        continue;
+                    }
+
+                    int susednyRiadok = riadok + dr;
+                    int susednyStlpec = stlpec + ds;
+
+                    if (!this.jeVHracomPoli(susednyRiadok, susednyStlpec)) {
+                        continue;
+                    }
+
+                    Policko susedne = this.policka[susednyRiadok][susednyStlpec];
+                    if (!susedne.maMinu() && !susedne.jeOdkryte()) {
+                        pozicie.add(new Pozicia(susednyRiadok, susednyStlpec));
+                    }
+                }
+            }
+        }
     }
 
     public void debugPrint() {
