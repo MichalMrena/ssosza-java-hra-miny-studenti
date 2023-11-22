@@ -14,6 +14,10 @@ public class Policko {
         this.jeOznacene = false;
     }
 
+    public Policko(Policko ine) {
+        // inicializovat atributy podla ineho
+    }
+
     public void odkry() {
         this.jeOdkryte = true;
     }

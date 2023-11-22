@@ -30,6 +30,13 @@ public class HraMiny {
         }
     }
 
+    /**
+     *  TODO toto nie je dobre, opravit aby sa policko nedalo zvonku modifikovat
+     */
+    public Policko getPolicko(int riadok, int stlpec) {
+        return this.policka[riadok][stlpec];
+    }
+
     public int getPocetRiadkov() {
         return this.policka.length;
     }
@@ -53,7 +60,7 @@ public class HraMiny {
         }
 
         if (policko.obsahujeMinu()) {
-            policko.odkry();
+//            policko.odkry();
             this.stavHry = StavHry.PREHRA;
             return;
         }
@@ -99,7 +106,7 @@ public class HraMiny {
                     }
 
                     Policko susedne = this.policka[susednyRiadok][susednyStlpec];
-                    if (!susedne.obsahujeMinu() && !policko.jeOdkryte()) {
+                    if (!susedne.obsahujeMinu() && !susedne.jeOdkryte()) {
                         pozicie.add(new Pozicia(susednyRiadok, susednyStlpec));
                     }
                 }

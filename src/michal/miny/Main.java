@@ -11,7 +11,10 @@ public class Main {
         miny.add(new Pozicia(3, 0));
 
         HraMiny hra = new HraMiny(4, 9, miny);
-        hra.debugPrint();
+        KonzolovyZobrazovacHry zobrazovac = new KonzolovyZobrazovacHry();
+        hra.odkry(0,0);
+        hra.odkry(3,8);
+        zobrazovac.zobraz(hra);
 
     }
 }
