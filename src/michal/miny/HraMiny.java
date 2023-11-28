@@ -89,7 +89,7 @@ public class HraMiny {
             this.pocetZostavajucich--;
 
             if (policko.getPocetMinVOkoli() > 0) {
-                return;
+                continue;
             }
 
             for (int dr = -1; dr < 2; dr++) {
@@ -97,7 +97,7 @@ public class HraMiny {
                     if (dr == 0 && ds == 0) {
                         continue;
                     }
-
+    
                     int susednyRiadok = pozicia.getRiadok() + dr;
                     int susednyStlpec = pozicia.getStlpec() + ds;
 

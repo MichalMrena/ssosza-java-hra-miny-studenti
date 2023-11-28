@@ -12,13 +12,13 @@ public class KonzolovyZobrazovacHry {
                 // x - ak ma minu
 
                 if (!policko.jeOdkryte()) {
-                    System.out.print(".");
+                    System.out.print("#");
                 } else if (policko.obsahujeMinu()) {
                     System.out.print("x");
                 } else if (policko.getPocetMinVOkoli() > 0) {
                     System.out.print(policko.getPocetMinVOkoli());
                 } else {
-                    System.out.print("0");
+                    System.out.print(".");
                 }
             }
             System.out.println();
