@@ -82,10 +82,6 @@ public class HraMiny {
             policko.odkrySa();
             this.pocetNeodkrytych--;
 
-            if (policko.getPocetMinVOkoli() > 0) {
-                continue;
-            }
-
             // prehladaj okolie
             for (int dr = -1; dr < 2; dr++) {
                 for (int ds = -1; ds < 2; ds++) {
@@ -93,8 +89,8 @@ public class HraMiny {
                         continue;
                     }
 
-                    int susednyRiadok = pozicia.getRiadok() + dr;
-                    int susednyStlpec = pozicia.getStlpec() + ds;
+                    int susednyRiadok = riadok + dr;
+                    int susednyStlpec = stlpec + ds;
 
                     if (!this.jeVHracomPoli(susednyRiadok, susednyStlpec)) {
                         continue;
