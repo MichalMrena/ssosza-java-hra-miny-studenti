@@ -10,7 +10,10 @@ public class Main {
         miny.add(new Pozicia(2, 0));
         miny.add(new Pozicia(3, 3));
 
-        HraMiny hra = new HraMiny(4, 4, miny);
-        hra.debugPrint();
+        HraMiny hra = new HraMiny(4, 9, miny);
+        KonzolovyZobrazovacHry zobrazovac = new KonzolovyZobrazovacHry();
+        hra.odkry(0,0);
+        hra.odkry(3,8);
+        zobrazovac.zobraz(hra);
     }
 }
