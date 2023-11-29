@@ -45,6 +45,10 @@ public class HraMiny {
         return this.policka[0].length;
     }
 
+    public StavHry getStavHry() {
+        return this.stavHry;
+    }
+
     public void odkry(int riadok, int stlpec) {
         if (!this.jeVHracejPloche(riadok, stlpec)) {
             return;
@@ -89,7 +93,7 @@ public class HraMiny {
             this.pocetZostavajucich--;
 
             if (policko.getPocetMinVOkoli() > 0) {
-                return;
+                continue;
             }
 
             for (int dr = -1; dr < 2; dr++) {
@@ -98,8 +102,8 @@ public class HraMiny {
                         continue;
                     }
 
-                    int susednyRiadok = riadok + dr;
-                    int susednyStlpec = stlpec + ds;
+                    int susednyRiadok = pozicia.getRiadok() + dr;
+                    int susednyStlpec = pozicia.getStlpec() + ds;
 
                     if (!this.jeVHracejPloche(susednyRiadok, susednyStlpec)) {
                         continue;

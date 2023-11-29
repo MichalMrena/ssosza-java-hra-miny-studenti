@@ -1,6 +1,7 @@
 package michal.miny;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -10,11 +11,22 @@ public class Main {
         miny.add(new Pozicia(2, 3));
         miny.add(new Pozicia(3, 0));
 
+        Scanner scanner = new Scanner(System.in);
         HraMiny hra = new HraMiny(4, 9, miny);
         KonzolovyZobrazovacHry zobrazovac = new KonzolovyZobrazovacHry();
-        hra.odkry(0,0);
-        hra.odkry(3,8);
+        ParserPrikazov parser = new ParserPrikazov();
         zobrazovac.zobraz(hra);
 
+        while (hra.getStavHry() == StavHry.PREBIEHA) {
+            System.out.print("> ");
+            String vstup = scanner.nextLine();
+            IPrikaz prikaz = parser.parsujPrikaz(vstup);
+            if (prikaz != null) {
+                prikaz.vykonaj(hra);
+                zobrazovac.zobraz(hra);
+            } else {
+                System.out.println("Nespravny prikaz!");
+            }
+        }
     }
 }
