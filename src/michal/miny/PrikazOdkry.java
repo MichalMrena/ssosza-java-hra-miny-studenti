@@ -1,16 +1,12 @@
 package michal.miny;
 
-public class PrikazOdkry implements IPrikaz {
-
-    private int riadok;
-    private int stlpec;
+public class PrikazOdkry extends SuradnicovyPrikaz {
 
     public PrikazOdkry(int riadok, int stlpec) {
-        this.riadok = riadok;
-        this.stlpec = stlpec;
+        super(riadok, stlpec);
     }
 
     public void vykonaj(HraMiny hra) {
-        hra.odkry(this.riadok, this.stlpec);
+        hra.odkry(this.getRiadok(), this.getStlpec());
     }
 }

@@ -5,13 +5,16 @@ public class KonzolovyZobrazovacHry {
     void zobraz(HraMiny hra) {
         for (int riadok = 0; riadok < hra.getPocetRiadkov(); riadok++) {
             for (int stlpec = 0; stlpec < hra.getPocetStlpcov(); stlpec++) {
-                Policko policko = hra.getPolicko(riadok, stlpec);
-                // . - nie je odkryre
+                IPopisPolicka policko = hra.getPolicko(riadok, stlpec);
+                // # - nie je odkryre
+                // f - oznacene
                 // 1 - resp. ine cislo ak obsahuje miny v okoli
                 // 0 - ak je prazdne a nema miny v okoli
                 // x - ak ma minu
 
-                if (!policko.jeOdkryte()) {
+                if (policko.jeOznacene()) {
+                    System.out.print("f");
+                } else if (!policko.jeOdkryte()) {
                     System.out.print("#");
                 } else if (policko.obsahujeMinu()) {
                     System.out.print("x");

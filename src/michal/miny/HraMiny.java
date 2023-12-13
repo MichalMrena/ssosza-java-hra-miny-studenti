@@ -30,10 +30,7 @@ public class HraMiny {
         }
     }
 
-    /**
-     *  TODO toto nie je dobre, opravit aby sa policko nedalo zvonku modifikovat
-     */
-    public Policko getPolicko(int riadok, int stlpec) {
+    public IPopisPolicka getPolicko(int riadok, int stlpec) {
         return this.policka[riadok][stlpec];
     }
 
@@ -64,7 +61,6 @@ public class HraMiny {
         }
 
         if (policko.obsahujeMinu()) {
-//            policko.odkry();
             this.stavHry = StavHry.PREHRA;
             return;
         }
@@ -74,6 +70,26 @@ public class HraMiny {
         if (this.pocetZostavajucich == 0) {
             this.stavHry = StavHry.VYHRA;
         }
+    }
+
+    public void oznac(int riadok, int stlpec) {
+        if (this.stavHry != StavHry.PREBIEHA) {
+            return;
+        }
+
+        this.policka[riadok][stlpec].oznac();
+    }
+
+    public void odznac(int riadok, int stlpec) {
+        if (this.stavHry != StavHry.PREBIEHA) {
+            return;
+        }
+
+        this.policka[riadok][stlpec].odznac();
+    }
+
+    public void ukonci() {
+        this.stavHry = StavHry.UKONCENA;
     }
 
     private void odkryOkolie(int riadok, int stlpec) {

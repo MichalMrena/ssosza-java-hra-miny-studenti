@@ -1,6 +1,6 @@
 package michal.miny;
 
-public class Policko {
+public class Policko implements IPopisPolicka {
 
     private boolean maMinu;
     private int pocetMinVOkoli;
@@ -14,14 +14,11 @@ public class Policko {
         this.jeOznacene = false;
     }
 
-    public Policko(Policko ine) {
-        // inicializovat atributy podla ineho
-    }
-
     public void odkry() {
         this.jeOdkryte = true;
     }
 
+    @Override
     public boolean obsahujeMinu() {
         return this.maMinu;
     }
@@ -34,14 +31,17 @@ public class Policko {
         this.jeOznacene = false;
     }
 
+    @Override
     public int getPocetMinVOkoli() {
         return this.pocetMinVOkoli;
     }
 
+    @Override
     public boolean jeOdkryte() {
         return this.jeOdkryte;
     }
 
+    @Override
     public boolean jeOznacene() {
         return this.jeOznacene;
     }
