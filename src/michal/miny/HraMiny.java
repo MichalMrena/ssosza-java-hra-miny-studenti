@@ -27,9 +27,7 @@ public class HraMiny {
         this.pocetNeodkrytych = pocetRiadkov * pocetStlpcov - miny.size();
     }
 
-    // TODO toto este nie je dobre lebo Policko sa da zvonku menit
-    // TODO treba to opravit
-    public Policko getPolicko(int riadok, int stlpec) {
+    public IPopisPolicka getPolicko(int riadok, int stlpec) {
         return this.policka[riadok][stlpec];
     }
 
@@ -69,6 +67,18 @@ public class HraMiny {
         if (this.pocetNeodkrytych == 0) {
             this.stavHry = StavHry.VYHRA;
         }
+    }
+
+    public void oznac(int riadok, int stlpec) {
+        this.policka[riadok][stlpec].oznacSa();
+    }
+
+    public void odznac(int riadok, int stlpec) {
+        this.policka[riadok][stlpec].odznacSa();
+    }
+
+    public void ukonci() {
+        this.stavHry = StavHry.UKONCENA;
     }
 
     private void odkryOkolieVratane(int riadok, int stlpec) {
