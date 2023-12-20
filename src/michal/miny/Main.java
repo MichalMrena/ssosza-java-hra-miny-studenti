@@ -6,10 +6,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        ArrayList<Pozicia> miny = new ArrayList<Pozicia>();
-        miny.add(new Pozicia(1, 1));
-        miny.add(new Pozicia(2, 3));
-        miny.add(new Pozicia(3, 0));
+        IGeneratorMin generatorMin = new NahodnyGeneratorMin();
+        ArrayList<Pozicia> miny = generatorMin.generujMiny(3, 4, 9);
 
         Scanner scanner = new Scanner(System.in);
         HraMiny hra = new HraMiny(4, 9, miny);

@@ -1,5 +1,7 @@
 package michal.miny;
 
+import java.util.Objects;
+
 public class Pozicia {
 
     private int riadok;
@@ -8,6 +10,19 @@ public class Pozicia {
     public Pozicia(int riadok, int stlpec) {
         this.riadok = riadok;
         this.stlpec = stlpec;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pozicia pozicia = (Pozicia) o;
+        return riadok == pozicia.riadok && stlpec == pozicia.stlpec;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(riadok, stlpec);
     }
 
     public int getRiadok() {
